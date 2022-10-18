@@ -4,7 +4,7 @@ Monitoring is an important part of maintaining the reliability, availability, an
 
 Metrics collected by this method are 
 
-**Infrastructure** - CPUUtilization, FreeableMemory, FreeStorageSpace , Load Average
+**1. Infrastructure** - CPUUtilization, FreeableMemory, FreeStorageSpace , Load Average
 
 | **Console Name**       | **Description**                                                                     | **Units** |
 |------------------------|-------------------------------------------------------------------------------------|-----------|
@@ -17,7 +17,7 @@ Metrics collected by this method are
 | **Load_Average**       | Publish the server Load Average                                                     |
 
 
- **Workload** - ReadIOPS, WriteIOPS, ReadThroughput, WriteThroughput and DatabaseConnections
+ **2. Workload** - ReadIOPS, WriteIOPS, ReadThroughput, WriteThroughput and DatabaseConnections
 
 | **Console Name**         | **Description**                                                                             | **Units**    |
 |--------------------------|---------------------------------------------------------------------------------------------|--------------|
@@ -28,7 +28,7 @@ Metrics collected by this method are
 | **Database_Connections** | The number of client network connections to the database instance via Oracle listener port. | Count        |
 
 
-**Performance** - ReadLatency, WriteLatency, DiskQueueDepth
+**3. Performance** - ReadLatency, WriteLatency, DiskQueueDepth
 
 This will indicate the performance metrics of the database workload and you’ll can make more informed decisions about performance of your RDS Custom environment. 
 
