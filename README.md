@@ -15,7 +15,6 @@ Metrics collected by this method are
 | **FreeableMemory**     | The amount of available random access memory.                                       | GB        |
 | **Database_available** | PMON Process checker. It will return 1 if the process in available and 0 otherwise. |           |
 | **Load_Average**       | Publish the server Load Average                                                     |
-                                         |
 
 
  **Workload** - ReadIOPS, WriteIOPS, ReadThroughput, WriteThroughput and DatabaseConnections
