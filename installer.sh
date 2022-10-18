@@ -29,6 +29,8 @@ sed -i "s/CWAgentCustom/$agent/g" custommetrics.sh
 
 chmod +x custommetrics.sh
 
+cp -rp ./custommetrics.sh /home/ec2-user/custommetrics.sh 
+
 echo "Installing the Script in Crontab"
 
  
