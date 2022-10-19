@@ -3,9 +3,13 @@
 ## Scope ##
 This monitoring solution can used for Self-Managed Oracle installation on EC2 and RDS Custom for Oracle environment. In both the cases, you have access to the underlying instances/servers.
 
-Monitoring is an important part of maintaining the reliability, availability, and performance of any infrastructure environment. In this post, we discuss about a solution using Amazon CloudWatch with RDS Custom for Oracle environment. This solution can be extended to monitor self-managed Oracle installations on Amazon Elastic Compute Cloud (Amazon EC2). This will enable you to monitor the health of Oracle instances (both RDS Custom and Self-Managed) and observe changes to the infrastructure and databases workloads. You can monitor metrics over a specific time period and set CloudWatch alarms to receive notifications.
+Monitoring is an important part of maintaining the reliability, availability, and performance of any infrastructure environment. This solution can be extended to monitor self-managed Oracle installations on Amazon Elastic Compute Cloud (Amazon EC2). This will enable you to monitor the health of Oracle instances (both RDS Custom and Self-Managed) and observe changes to the infrastructure and databases workloads. You can monitor metrics over a specific time period and set CloudWatch alarms to receive notifications.
 
-Metrics collected by this method are 
+In this post, we will integrate this tool with RDS Custom for Oracle environment. 
+
+
+
+## Metrics collected by this method ##
 
 **1. Infrastructure** - CPUUtilization, FreeableMemory, FreeStorageSpace , Load Average
 
@@ -43,7 +47,8 @@ This will indicate the performance metrics of the database workload and you’ll
 
 The solution will fetch data from the AWS/EBS, AWS/EC2 and CWAgentCustom namespace in CloudWatch for the Infrastructure and performance related information. This data will be transformed into Graphs in the Amazon EC2 console (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cloudwatch_ebs.html#graphs-in-the-aws-management-console-2) by using mathematical expressions and publishing those into AWS CloudWatch. The data related to Database Connections and Memory will be collected via a shell script installed in the host and it will be pushed into custom namespace. These data will be populated in the Custom CloudWatch Dashboard for visualization. Additionally, we will demonstrate AWS CloudWatch Alarms creation on few metrics widgets to receive alerts over email. 
 
-Pre - Requisites 
+
+## Pre - Requisites ##
 Familiarity with the following AWS services:
 
     * Amazon RDS Custom for Oracle
@@ -63,7 +68,7 @@ Due to security reason, you can follow the principle of least privilege and add 
 *cloudwatch:DeleteDashboards* to be able to delete dashboards
 
 
-Installation Process -
+## Installation Process ##
 
 1. Identify the EC2 Instance ID from the AWS Console
 2. Identify the EBS Volumes <rdsdbdata> attached to the instance using 
