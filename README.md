@@ -1,6 +1,9 @@
-## Monitoring Solution for RDS Custom for Oracle
+## Monitoring Solution using Amazon CloudWatch
 
-Monitoring is an important part of maintaining the reliability, availability, and performance of Amazon RDS Custom for Oracle.In this post, we discuss about a solution using Amazon CloudWatch with RDS Custom for Oracle environment. This solution can be extended to monitor self-managed Oracle installations on Amazon Elastic Compute Cloud (Amazon EC2). This will enable you to monitor the health of Oracle instances (both RDS Custom and Self-Managed) and observe changes to the infrastructure and databases workloads. You can monitor metrics over a specific time period and set CloudWatch alarms to receive notifications.
+##Scope ##
+This monitoring solution can used for Self-Managed Oracle installation on EC2 and RDS Custom for Oracle environment. In both the cases, you have access to the underlying instances/servers.
+
+Monitoring is an important part of maintaining the reliability, availability, and performance of any infrastructure environment. In this post, we discuss about a solution using Amazon CloudWatch with RDS Custom for Oracle environment. This solution can be extended to monitor self-managed Oracle installations on Amazon Elastic Compute Cloud (Amazon EC2). This will enable you to monitor the health of Oracle instances (both RDS Custom and Self-Managed) and observe changes to the infrastructure and databases workloads. You can monitor metrics over a specific time period and set CloudWatch alarms to receive notifications.
 
 Metrics collected by this method are 
 
