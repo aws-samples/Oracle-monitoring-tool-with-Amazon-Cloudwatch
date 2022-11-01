@@ -63,9 +63,9 @@ The *AdministratorAccess* policy
 The *CloudWatchFullAccess* policy
 
 Due to security reason, you can follow the principle of least privilege and add custom policy that includes one or more of these specific permissions:
-*cloudwatch:GetDashboard* and *cloudwatch:ListDashboards* ** to be able to view dashboards
-*cloudwatch:PutDashboard* to be able to create or modify dashboards
-*cloudwatch:DeleteDashboards* to be able to delete dashboards
+*cloudwatch:GetDashboard* and *cloudwatch:ListDashboards* ** to view dashboards
+*cloudwatch:PutDashboard* to create or modify dashboards
+*cloudwatch:DeleteDashboards* to delete dashboards
 
 
 ## Installation Process ##
@@ -151,7 +151,7 @@ $
 
 The final graphs will look like as below:
 
-![image description](final.png)
+![image description](dashboard_example.png)
 
 
 
