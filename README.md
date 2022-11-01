@@ -129,6 +129,8 @@ Enter the Name of CloudWatch Dashboard (Example - <RDS_Name>_Dashboard)
 custom19_dashboard
 Enter the Name of Custom Namespace for propagating Host Level metrics (Example - <RDS_Name>_Agent)
 custom19c_namespace
+Enter the Region of the Database Instance (Example - us-east-1)
+us-east-1
 These are the following Volume ID and the EC2 instance ID
 vol-12345a
 vol-67890b
