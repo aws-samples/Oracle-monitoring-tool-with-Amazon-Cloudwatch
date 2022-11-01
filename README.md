@@ -155,7 +155,10 @@ The final graphs will look like as below:
 
 ![image description](dashboard_example.png)
 
-
+Contributors 
+   Arnab Saha
+   Radhika Chakravarty
+   Rohan Vashi
 
 
 
