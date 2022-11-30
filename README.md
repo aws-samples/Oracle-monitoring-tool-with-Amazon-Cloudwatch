@@ -257,12 +257,12 @@ aws cloudwatch put-dashboard --dashboard-name <Existing Dashboard Name> --dashbo
  ```
  
 -- You get the following output if your API call successfully passed and update the dashboard --
- 
+ ```
 {
 
  "DashboardValidationMessages": []
  }
-
+```
 ### Scenario 3 – Addition of EBS Volumes
 
 For this current use case using RDS Custom for Oracle, we have four EBS volumes. In case, you have  more  than 4 data volume and you  want to  monitor the same, but you  can  modify this per your use case in the JSON file and add volumes similarly. You  can  use any JSON editor to validate the format after the editing completes.
