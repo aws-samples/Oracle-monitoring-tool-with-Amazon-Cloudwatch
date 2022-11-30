@@ -1,4 +1,6 @@
-## Monitoring Solution using Amazon CloudWatch
+# Monitoring Solution using Amazon CloudWatch
+
+
 
 ## Scope ##
 This monitoring solution can used for Self-Managed Oracle installation on EC2 and RDS Custom for Oracle environment. In both the cases, you have access to the underlying instances/servers.
@@ -7,7 +9,7 @@ Monitoring is an important part of maintaining the reliability, availability, an
 
 In this post, we will integrate this tool with RDS Custom for Oracle environment. 
 
-
+:warning: Although this is a non invasive script , make sure you test and run in Dev before you run the scrip in Prod 
 
 ## Metrics collected by this method ##
 
@@ -129,8 +131,6 @@ Enter the Name of CloudWatch Dashboard (Example - <RDS_Name>_Dashboard)
 custom19_dashboard
 Enter the Name of Custom Namespace for propagating Host Level metrics (Example - <RDS_Name>_Agent)
 custom19c_namespace
-Enter the Region of the Database Instance (Example - us-east-1)
-us-east-1
 These are the following Volume ID and the EC2 instance ID
 vol-12345a
 vol-67890b
@@ -155,10 +155,170 @@ The final graphs will look like as below:
 
 ![image description](dashboard_example.png)
 
-Contributors 
-   Arnab Saha
-   Radhika Chakravarty
-   Rohan Vashi
+
+
+## (Optional) Manual modification of the scripts 
+
+There are situations when you might need to manually update and run the scripts.
+
+  
+
+### Scenario 1 – Replacement of EC2 Instance
+
+  
+
+The underlying EC2 instance catered to RDS Custom for Oracle or Self-managed Oracle on EC2 will get changed if the instance is modified to move to a higher or lower instance class. The AWS automation component can also replace unhealthy underlying EC2 instance as a part of recovery action or maintenance.
+
+In both the cases, the instance ID of the underlying EC2 instance will change.
+
+  
+
+In this situation, you can check the new EC2 instance ID from the AWS Console. You need to update the EC2 instance ID in the following scripts and run it.
+
+  
+
+Shell Script
+
+  
+
+```
+
+sed -i "s/<Old EC2 Instance ID>/<new EC2 Instance ID>/g" custommetrics.sh
+
+Example –
+
+sed -i "s/i-0ea2648c36a7c0574/i-6a7c0574/g" custommetrics.sh
+
+  
+
+```
+
+  
+
+You don’t need to reschedule this in crontab as it is already installed.
+
+  
+
+Dashboard file
+
+```
+
+sed -i "s/<Old EC2 Instance ID>/<new EC2 Instance ID>/g" dash.json
+
+--Example-–
+
+sed -i "s/i-0ea2648c36a7c0574/i-6a7c0574/g" dash.json
+
+  
+
+```
+
+  
+
+Update the existing dashboard using modified dash.json file either from AWS Console or using AWS CLI.
+
+```
+
+aws cloudwatch put-dashboard --dashboard-name <Existing Dashboard Name> --dashboard-body file://dash.json --region us-east-1
+
+  
+  
+
+- You get the following output if your API call successfully passed and created the dashboard --
+
+{
+
+  
+
+"DashboardValidationMessages": []
+
+}
+
+  
+
+```
+
+
+### Scenario 2 – Replacement of EBS Volumes
+
+  
+The volumes allocated to the EC2 instance may get replaced due to underlying hardware failure. In this situation, AWS automation will replace the impaired volume with a new one. This will cause the change in the volume ID.
+
+In such cases, you  need to  update the dashboard to fetch data from the updated volume ID.
+
+You  can  update the new volume ID in the dashboard configuration file and update the dashboard using AWS Console or AWS CLI.  
+```
+sed -i "s/<Old Volume>/<New Volume>/g" dash.json
+```
+
+--Install the Dashboard—
+```
+aws cloudwatch put-dashboard --dashboard-name <Existing Dashboard Name> --dashboard-body file://dash.json --region us-east-1
+ ```
+ 
+-- You get the following output if your API call successfully passed and update the dashboard --
+ 
+{
+
+ "DashboardValidationMessages": []
+ }
+
+### Scenario 3 – Addition of EBS Volumes
+
+For this current use case using RDS Custom for Oracle, we have four EBS volumes. In case, you have  more  than 4 data volume and you  want to  monitor the same, but you  can  modify this per your use case in the JSON file and add volumes similarly. You  can  use any JSON editor to validate the format after the editing completes.
+
+For example, if you have five volumes, then you  need to  add the fifth volume and replace the other volumes IDs for each widget. The following is an example of one widget with five volumes:  
+```
+{
+
+            "height": 6,
+
+            "width": 6,
+
+            "y": 6,
+
+            "x": 0,
+
+            "type": "metric",
+
+            "properties": {
+
+                "metrics": [
+
+                    [ "AWS/EBS", "VolumeReadOps", "VolumeId", "vol-027a6e961a7dc7acc", { "id": "m1", "visible": false } ],
+
+                    [ "...", "vol-058b4cd3d5db1976a", { "id": "m2", "visible": false } ],
+
+                    [ "...", "vol-087b136001ed84be9", { "id": "m3", "visible": false } ],
+
+                    [ "...", "vol-04f392aa5130cede1", { "id": "m4", "visible": false } ],
+
+                   ## Adding the fifth volume below and modifying the math expression with Fifth volumeID.
+
+                    [ "...", "vol-058b4cd3d5db15765", { "id": "m5", "visible": false } ],
+
+                    [ { "expression": "SUM([m1,m2,m3,m4,m5])/60", "label": "SUM(VolumeReadOps)/Period", "id": "e1" } ]
+
+                ],
+
+                "view": "timeSeries",
+
+                "stacked": false,
+
+                "region": "eu-west-1",
+
+                "stat": "Sum",
+
+                "period": 60,
+
+                "title": "Read Throughput (IOPS)"
+
+            }
+
+        }     
+
+  ``` 
+You add the newly added volumeID in the math expression to calculate the aggregated values.
 
 
 
