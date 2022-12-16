@@ -3,7 +3,7 @@ export PATH=$PATH:/usr/local/bin
 
 USEDMEMORY=$(free -m | awk 'NR==2{printf "%.2f\t", $3*100/$2 }')
 
-LISTENER_PORT=$(/rdsdbbin/oracle/bin/lsnrctl status | grep -i "Port" | awk 'NR==1 {print $3}' | cut -d "=" -f5 | cut -d ")" -f1)
+LISTENER_PORT=1521
 
 TCP_CONN=$(netstat -na | awk '$4 ~ /:'${LISTENER_PORT}'/ {print $0}' | wc -l)
 
